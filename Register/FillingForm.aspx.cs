@@ -24,68 +24,13 @@ namespace Register
                 string hoTen = txtKH.Text;
                 string ngaySinh = txtNgaySinh.Text;
                 string email = txtEmail.Text;
-                string dienThoai = txtThuNhap.Text; // txtThuNhap trong form
                 string gioiTinh = radNam.Checked ? "Nam" : "Nữ";
+                string thuNhap = txtThuNhap.Text;
 
-                // 2. Kiểm tra dữ liệu đầu vào
-                //if (string.IsNullOrWhiteSpace(tenDN))
-                //{
-                //    lblThongBao.Text = "Tên đăng nhập không được rỗng!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-                //if (string.IsNullOrWhiteSpace(matKhau))
-                //{
-                //    lblThongBao.Text = "Mật khẩu không được rỗng!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-                //if (string.IsNullOrWhiteSpace(nhapLaiMK))
-                //{
-                //    lblThongBao.Text = "Nhập lại mật khẩu không được rỗng!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-                //if (matKhau != nhapLaiMK)
-                //{
-                //    lblThongBao.Text = "Mật khẩu nhập lại chưa đúng!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-                //if (string.IsNullOrWhiteSpace(hoTen))
-                //{
-                //    lblThongBao.Text = "Họ tên khách hàng không được rỗng!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-
-                //if (!DateTime.TryParse(ngaySinh, out DateTime ngay))
-                //{
-                //    lblThongBao.Text = "Ngày sinh không hợp lệ!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-
-                //if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-                //{
-                //    lblThongBao.Text = "Email không hợp lệ!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-
-                //if (!decimal.TryParse(dienThoai, out decimal thuNhap) ||
-                //    thuNhap < 1000000 || thuNhap > 50000000)
-                //{
-                //    lblThongBao.Text = "Thu nhập từ 1 triệu đến 50 triệu!";
-                //    lblThongBao.ForeColor = System.Drawing.Color.Red;
-                //    return;
-                //}
-
-                // 3. Câu lệnh SQL
                 string sql = @"INSERT INTO KhachHang
-                                (TenDangNhap, MatKhau, HoTen, Email, DienThoai, NgaySinh, GioiTinh)
+                                (TenDangNhap, MatKhau, HoTen, Email, NgaySinh, GioiTinh, ThuNhap)
                                VALUES
-                                (@TenDangNhap, @MatKhau, @HoTen, @Email, @DienThoai, @NgaySinh, @GioiTinh)";
+                                (@TenDangNhap, @MatKhau, @HoTen, @Email, @NgaySinh, @GioiTinh, @thuNhap)";
 
                 SqlParameter[] parameters = new SqlParameter[]
                 {
@@ -93,9 +38,9 @@ namespace Register
                     new SqlParameter("@MatKhau", matKhau),
                     new SqlParameter("@HoTen", hoTen),
                     new SqlParameter("@Email", email),
-                    new SqlParameter("@DienThoai", dienThoai),
                     new SqlParameter("@NgaySinh", ngaySinh),
-                    new SqlParameter("@GioiTinh", gioiTinh)
+                    new SqlParameter("@GioiTinh", gioiTinh),
+                    new SqlParameter("@thuNhap", thuNhap)
                 };
 
                 int kq = db.Excute(sql, parameters);
